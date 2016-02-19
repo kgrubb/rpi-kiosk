@@ -44,6 +44,7 @@ then
   echo " "
   echo "copying files..."
   cp ./files/kiosk-startup /usr/bin/kiosk-startup
+  chmod 755 /usr/bin/kiosk-startup
   mkdir -p /home/pi/.config/autostart
   cp ./files/autostart /home/pi/.config/lxsession/LXDE-pi/autostart
   cp ./files/x11vnc.desktop /home/pi/.config/autostart/x11vnc.desktop
