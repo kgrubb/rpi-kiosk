@@ -42,6 +42,7 @@ then
   apt-get install vim unzip wpasupplicant x11vnc xscreensaver git iceweasel -y
   echo " "
   echo "setting x11vnc password"
+  mkdir -p /home/pi/.vnc
   x11vnc -storepasswd $PASSWORD /home/pi/.vnc/passwd
 
   echo " "
