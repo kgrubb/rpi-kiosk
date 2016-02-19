@@ -33,13 +33,13 @@ then
   apt-get update
   echo " "
   echo "removing unnecessary packages & cleaning up"
-  apt-get purge nodered minecraft-pi scratch wolfram-engine bluej greenfoot sonic-pi
+  apt-get purge nodered minecraft-pi scratch wolfram-engine bluej greenfoot sonic-pi -y
   apt-get autoclean
   apt-get autoremove -y -q
   echo " "
   echo "upgrading and installing necessary packages"
   apt-get upgrade -y
-  apt-get install vim unzip wpasupplicant x11vnc xscreensaver git -y
+  apt-get install vim unzip wpasupplicant x11vnc xscreensaver git iceweasel -y
   echo " "
   echo "setting x11vnc password"
   x11vnc -storepasswd $PASSWORD /home/pi/.vnc/passwd
