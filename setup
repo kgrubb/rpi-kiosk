@@ -40,10 +40,6 @@ then
   echo "upgrading and installing necessary packages"
   apt-get upgrade -y
   apt-get install vim unzip wpasupplicant x11vnc xscreensaver git iceweasel -y
-  echo " "
-  echo "setting x11vnc password"
-  mkdir -p /home/pi/.vnc
-  x11vnc -storepasswd $PASSWORD /home/pi/.vnc/passwd
 
   echo " "
   echo "copying files..."
@@ -51,6 +47,15 @@ then
   mkdir -p /home/pi/.config/autostart
   cp ./files/autostart /home/pi/.config/lxsession/LXDE-pi/autostart
   cp ./files/x11vnc.desktop /home/pi/.config/autostart/x11vnc.desktop
+  echo " "
+  echo "setting x11vnc password"
+  su -c "mkdir -p /home/pi/.vnc" pi
+  su -c "x11vnc -storepasswd $PASSWORD /home/pi/.vnc/passwd" pi
+  echo " "
+  echo "#-------------------#"
+  echo "# Install complete! #"
+  echo "#-------------------#"
+  echo " "
 else
   echo "Please specify a password for your x11vnc session."
   exit 1
