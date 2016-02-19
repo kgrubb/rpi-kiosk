@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# This is a script set to autostart when the lxsession begins.
+# Place your custom scripts/commands/locations here.
+sleep 15
+iceweasel

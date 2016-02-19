@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Name=X11VNC
+Comment=
+Exec=x11vnc -ncache -ncache_cr -noxfixes -noxdamage -display :0 -usepw -forever  -shared -bg -rfbport 5900
+StartupNotify=false
+Terminal=false
+Hidden=false

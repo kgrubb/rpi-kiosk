@@ -1,0 +1,56 @@
+#!/bin/bash
+
+USAGE="
+$(basename "$0") [-h -p -v] -- set up Kiosk-Mode for Raspberry pi's
+
+Options:
+    -h [or -?] shows this help text
+    -p  sets the password for x11vnc
+    -v  shows the installer's version
+"
+
+VERSION="1.1.0"
+
+while getopts "h?p:s:v" options; do
+    case $options in
+        h|\? ) echo "$USAGE"
+        exit 0;;
+        p ) PASSWORD=$OPTARG;;
+        v ) echo $VERSION
+        exit 0;;
+    esac
+done
+
+if [ -n "$PASSWORD" ]
+then
+  echo " "
+  echo "#----------------------#"
+  echo "# KIOSK-MODE INSTALLER #"
+  echo "#----------------------#"
+  echo " "
+
+  echo "updating package list"
+  apt-get update
+  echo " "
+  echo "removing unnecessary packages & cleaning up"
+  apt-get purge nodered minecraft-pi scratch wolfram-engine bluej greenfoot sonic-pi
+  apt-get autoclean
+  apt-get autoremove -y -q
+  echo " "
+  echo "upgrading and installing necessary packages"
+  apt-get upgrade -y
+  apt-get install vim unzip wpasupplicant x11vnc xscreensaver git -y
+  echo " "
+  echo "setting x11vnc password"
+  x11vnc -storepasswd $PASSWORD /home/pi/.vnc/passwd
+
+  echo " "
+  echo "copying files..."
+  cp ./files/kiosk-startup /usr/bin/kiosk-startup
+  mkdir -p /home/pi/.config/autostart
+  cp ./files/autostart /home/pi/.config/lxsession/LXDE-pi/autostart
+  cp ./files/x11vnc.desktop /home/pi/.config/autostart/x11vnc.desktop
+else
+  echo "Please specify a password for your x11vnc session."
+  exit 1
+fi
